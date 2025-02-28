@@ -1,0 +1,10 @@
+.navbar-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.navbar-app .logo {
+  width: 50px;
+  height: 50px;
+}
