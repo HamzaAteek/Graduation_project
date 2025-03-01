@@ -1,22 +1,20 @@
-import useData from "../hooks/useData";
+import useDataQuery from "../hooks/useDataQuery";
 
 const useGame = (
   selectGenre,
   selectPlatform,
   selectSortOrder,
   selectSearchText
-) =>
-  useData(
-    "/games",
-    {
+) => {
+  return useDataQuery({
+    endPoint: "/games", //تمرير نهاية الرابط
+    filters: {
       //عن طريق هذه تم الفلترة ببارمترات عدة
-      params: {
-        genres: selectGenre?.id,
-        platforms: selectPlatform?.id,
-        ordering: selectSortOrder,
-        search: selectSearchText,
-      },
+      genres: selectGenre?.id,
+      platforms: selectPlatform?.id,
+      ordering: selectSortOrder,
+      search: selectSearchText,
     },
-    [selectGenre?.id, selectPlatform?.id, selectSortOrder, selectSearchText] //قمنا بتمرير بارمترات اخرى لليوس داتا وهو الاي دي الذي على اساسه سيتم فلترة الألعاب
-  );
+  });
+};
 export default useGame;

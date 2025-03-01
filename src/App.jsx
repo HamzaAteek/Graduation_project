@@ -5,11 +5,6 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light"); //يوس ستايت خاصة لتخزيم وضعية الوضع الليلي سيتم جلب القيمة من المخزن المحلي
-  // //يوستايت خاصة لفلترة الأنواع
-  // const [selectGenre, setSelectGenre] = useState(null);
-
-  // //يوستايت خاصة لفلترة المنصات التي تعمل عليها الألعاب
-  // const [selectPlatform, setSelectPlatform] = useState(null);
 
   //يوستايت شاملة لنظافة الكود
   const [gameQuery, setGameQuery] = useState({});

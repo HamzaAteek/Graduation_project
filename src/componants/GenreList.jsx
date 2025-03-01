@@ -3,19 +3,19 @@ import { useState } from "react";
 import useGenres from "../hooks/useGenres";
 
 const GenreList = ({ onSelectGenre }) => {
-  const { data, isloading } = useGenres();
+  const { data, isLoading } = useGenres();
   const [active, setActive] = useState(null); //يوستايت خاصة لتعيين لون مخصص للزر المضغوط
 
   //   const { data } = useGenres("/genres"); //استدعاء الملف الذي يجلب الداتا مع اعطاؤه نهاية اللينك الذي سيجلب الداتا منه
   const handelClick = (id) => {
     setActive(id);
   };
-  if (isloading)
+  if (isLoading)
     return (
       <div role="status">
         <svg
           aria-hidden="true"
-          class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -29,16 +29,15 @@ const GenreList = ({ onSelectGenre }) => {
             fill="currentFill"
           />
         </svg>
-        <span class="sr-only">Loading...</span>
+        <span className="sr-only">Loading...</span>
       </div>
     );
   return (
     <>
       <div className="flex flex-col">
-        {data.map((d) => (
-          <div>
+        {data?.map((d) => (
+          <div key={d.id}>
             <button
-              key={d.id}
               className={`flex flex-row text-xs  p-2 w-full hover:bg-slate-400 ${
                 active === d.id ? "bg-green-600 shadow-lg" : ""
               }`} //تعيين لون مخصص للزر المضغوط

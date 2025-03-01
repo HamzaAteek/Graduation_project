@@ -1,5 +1,6 @@
 //ملف لجلب بيانات المنصات
-import useData from "../hooks/useData";
+import useDataQuery from "../hooks/useDataQuery";
 
-const usePlatform = () => useData("/platforms/lists/parents");
+const usePlatform = () =>
+  useDataQuery({ endPoint: "/platforms/lists/parents" });
 export default usePlatform;

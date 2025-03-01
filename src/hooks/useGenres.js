@@ -1,4 +1,4 @@
-import useData from "../hooks/useData";
+import useDataQuery from "../hooks/useDataQuery";
 
-const useGenres = () => useData("/genres");
+const useGenres = () => useDataQuery({ endPoint: "/genres" });
 export default useGenres;

@@ -3,7 +3,7 @@ import usePlatform from "../hooks/usePlatform";
 
 //كومبونانت خاص للقائمة التي من خلالها سيتم فلترة الألعاب حسب المنصات التي تعمل عليها
 const PlatformSelector = ({ onSelectPlatform, selectPlatform }) => {
-  const { error, data } = usePlatform();
+  const { error, results: data } = usePlatform();
   if (error) return null;
   return (
     <>
@@ -47,7 +47,7 @@ const PlatformSelector = ({ onSelectPlatform, selectPlatform }) => {
               None
             </a>
           </li>
-          {data.map((platform) => (
+          {data?.map((platform) => (
             <li
               key={platform.id}
               onClick={() => onSelectPlatform(platform)}
