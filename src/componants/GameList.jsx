@@ -3,19 +3,8 @@ import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 
 //كومبونانت لعرض الكروت
-const GameList = ({
-  selectGenre,
-  selectPlatform,
-  selectSortOrder,
-  selectSearchText,
-}) => {
-  const { data, error, isLoading } = useGame(
-    selectGenre,
-    selectPlatform,
-    selectSortOrder,
-    selectSearchText
-  ); //تمرير البروبس الذي يحتوي على المعلومات المفلترة لليوس جايم لجلب البيانات بطريقة مفلترة
-
+const GameList = () => {
+  const { data, error, isLoading } = useGame(); //تمرير البروبس الذي يحتوي على المعلومات المفلترة لليوس جايم لجلب البيانات بطريقة مفلترة
   const skeletonCount = 11; //متغير نحدد من خلاله عدد الكروت الوهمية التي ستظهر ريثما يتم تحميل البيانات
   if (error)
     return (

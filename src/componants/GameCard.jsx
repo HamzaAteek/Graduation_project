@@ -15,13 +15,16 @@ const GameCard = ({ game }) => {
           alt=""
         />
       </a>
-      <div className="p-5">
+      <div className="p-5 flex flex-col justify-between">
         {/* عرض اسم كل لعبة */}
-        <a href="#">
-          <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {game.name} <RatingByEmojy rating={game.rating_top} />
+        <a href="#" className="row-span-1">
+          <h5 className="mb-2  text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {game.name}
           </h5>
         </a>
+        <div className="row-span-2">
+          <RatingByEmojy rating={game.rating_top} />
+        </div>
         {/* عرض المنصات التي تعمل عليها كل لعبة */}
         <div className="flex justify-between items-center flex-wrap">
           <div className="platform">
@@ -30,7 +33,11 @@ const GameCard = ({ game }) => {
             />
           </div>
           <div className="score">
-            <CriticScore score={game.metacritic} />
+            {game.metacritic ? (
+              <CriticScore score={game.metacritic} />
+            ) : (
+              <span>Not rating</span>
+            )}
           </div>
         </div>
       </div>

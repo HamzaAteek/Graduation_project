@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import { useContext, useRef } from "react";
+import GameContext from "./GameContext";
 
-const SearchInput = ({ onSearch }) => {
-  const refValue = useRef(null);
-  const Search = (event) => {
-    if (refValue) onSearch(refValue.current.value);
-  };
+const SearchInput = () => {
+  const { dispatch } = useContext(GameContext);
+  const refValue = useRef();
   return (
     <form>
       <label
@@ -32,7 +31,12 @@ const SearchInput = ({ onSearch }) => {
           </svg>
         </div>
         <input
-          onChange={Search}
+          onChange={() =>
+            dispatch({
+              type: "SET_GAME_QUERY",
+              payload: { selectSearchText: refValue.current.value },
+            })
+          }
           ref={refValue}
           type="search"
           id="default-search"

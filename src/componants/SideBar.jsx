@@ -1,11 +1,11 @@
 //كومبونانت لعرض الثائمة التي على اليسار
 import GenreList from "./GenreList";
 
-const SideBar = ({ onSelectGenre }) => {
+const SideBar = () => {
   //تمرير الدالة كوسيط للابن
   return (
     <div className="col-span-1">
-      <GenreList onSelectGenre={onSelectGenre} />
+      <GenreList />
     </div>
   ); //استدعاء الكومبونانت الذي يحتوي على الانواع
 };

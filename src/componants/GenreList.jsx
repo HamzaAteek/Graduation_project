@@ -1,15 +1,12 @@
 //كومبونانت لعرض انواع الالعاب التي على  اليسار
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useGenres from "../hooks/useGenres";
+import GameContext from "./GameContext";
 
-const GenreList = ({ onSelectGenre }) => {
+const GenreList = () => {
+  const { state, dispatch } = useContext(GameContext);
   const { data, isLoading } = useGenres();
-  const [active, setActive] = useState(null); //يوستايت خاصة لتعيين لون مخصص للزر المضغوط
 
-  //   const { data } = useGenres("/genres"); //استدعاء الملف الذي يجلب الداتا مع اعطاؤه نهاية اللينك الذي سيجلب الداتا منه
-  const handelClick = (id) => {
-    setActive(id);
-  };
   if (isLoading)
     return (
       <div role="status">
@@ -39,12 +36,17 @@ const GenreList = ({ onSelectGenre }) => {
           <div key={d.id}>
             <button
               className={`flex flex-row text-xs  p-2 w-full hover:bg-slate-400 ${
-                active === d.id ? "bg-green-600 shadow-lg" : ""
+                state?.gameQuery?.active === d.id
+                  ? "bg-green-600 shadow-lg"
+                  : ""
               }`} //تعيين لون مخصص للزر المضغوط
-              onClick={() => {
-                onSelectGenre(d); //عند الضغط على الفئة سيتم الفلترة على اساسها وذلك بارسال هذه المعلومات للأب
-                handelClick(d.id);
-              }}
+              onClick={
+                () =>
+                  dispatch({
+                    type: "SET_GAME_QUERY",
+                    payload: { selectGenre: d, active: d.id },
+                  }) //عند الضغط على الفئة سيتم الفلترة على اساسها وذلك بارسال هذه المعلومات للأب
+              }
             >
               <img
                 src={d.image_background}

@@ -1,4 +1,7 @@
-const SortSelector = ({ onSelectSortOrder, selectSortOrder }) => {
+import { useContext } from "react";
+import GameContext from "./GameContext";
+
+const SortSelector = () => {
   //مصفوفة تحتوي على القيم لفرز الألعاب حسب عدة قيم من الapi
   const sortOrders = [
     { value: "", label: "Relevance" },
@@ -8,9 +11,10 @@ const SortSelector = ({ onSelectSortOrder, selectSortOrder }) => {
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average rating" },
   ];
+  const { state, dispatch } = useContext(GameContext);
   //دالة للبحث عن القيمة وترجعها اذا لم يكن هنالك قيمة تضع القيمة الافتراضية
   const selectedSortLabel =
-    sortOrders.find((order) => order.value === selectSortOrder)?.label ||
+    sortOrders.find((order) => order.value === state.selectSortOrder)?.label ||
     "Relevance";
 
   return (
@@ -51,7 +55,12 @@ const SortSelector = ({ onSelectSortOrder, selectSortOrder }) => {
               class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
               key={order.value}
               value={order.value}
-              onClick={() => onSelectSortOrder(order.value)}
+              onClick={() =>
+                dispatch({
+                  type: "SET_GAME_QUERY",
+                  payload: { selectSortOrder: order.value },
+                })
+              }
             >
               <a href="#">{order.label}</a>
             </li>

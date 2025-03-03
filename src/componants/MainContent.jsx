@@ -15,32 +15,15 @@ const MainContent = ({
     <div className="MainContent col-span-5">
       <div className="flex gap-6 mb-2 justify-between">
         <div>
-          <GameHead
-            selectGenre={selectGenre}
-            selectPlatform={selectPlatform}
-            selectSortOrder={selectSortOrder}
-          />
+          <GameHead />
         </div>
         <div>
-          <div>
-            <PlatformSelector
-              onSelectPlatform={onSelectPlatform}
-              selectPlatform={selectPlatform}
-            />
-            <SortSelector
-              selectSortOrder={selectSortOrder}
-              onSelectSortOrder={onSelectSortOrder}
-            />
-          </div>
+          <PlatformSelector />
+          <SortSelector />
         </div>
       </div>
       <div>
-        <GameList
-          selectGenre={selectGenre}
-          selectPlatform={selectPlatform}
-          selectSortOrder={selectSortOrder}
-          selectSearchText={selectSearchText}
-        />
+        <GameList />
       </div>
     </div>
   );

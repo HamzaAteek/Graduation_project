@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import GameContext from "./GameContext";
+
 //هذا الكومبونانت الخاص بعرض الأسماء التي يتم الفلرتة بناء عليها
-const GameHead = ({ selectGenre, selectPlatform, selectSortOrder }) => {
+const GameHead = () => {
+  const { state } = useContext(GameContext);
+  const { selectGenre, selectPlatform, selectSortOrder } = state.gameQuery;
   const heading = `${selectGenre?.name || ""} ${selectPlatform?.name || ""} ${
     selectSortOrder || ""
   } Games`;

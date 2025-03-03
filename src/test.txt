@@ -1,14 +1,147 @@
+  const { state } = useContext(GameContext); // الوصول إلى الحالة
+  const activeGenre = state.gameQuery?.active; // الوصول إلى active
+  const selectedGenre = state.gameQuery?.selectGenre; // الوصول إلى selectGenre
+
+--------------------------------------------
+import { useInfiniteQuery } from "@tanstack/react-query";
+import apiClient from "../services/api-client";
+
+const useDataQuery = ({ endPoint, filters, pageSize = 6 }) => {
+  const fetchGames = async ({ pageParam = 1 }) => {
+    const { data } = await apiClient.get(endPoint, {
+      params: { ...filters, page: pageParam, pageSize }, // إضافة `pageSize`
+    });
+    return data;
+  };
+
+  return useInfiniteQuery({
+    queryKey: filters ? ["games", endPoint, filters] : ["games", endPoint],
+    queryFn: fetchGames,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.next) {
+        const url = new URL(lastPage.next);
+        const nextPage = url.searchParams.get("page");
+        return nextPage ? Number(nextPage) : undefined;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+  });
+};
+
+export default useDataQuery;
+import useDataQuery from "../hooks/useDataQuery";
+
+const useGame = (
+  selectGenre,
+  selectPlatform,
+  selectSortOrder,
+  selectSearchText
+) => {
+  return useDataQuery({
+    endPoint: "/games",
+    filters: {
+      genres: selectGenre?.id,
+      platforms: selectPlatform?.id,
+      ordering: selectSortOrder,
+      search: selectSearchText,
+    },
+    pageSize: 6, // تحديد حجم الصفحة
+  });
+};
+
+export default useGame;
+import { useEffect } from "react";
+import useGame from "../hooks/useGame";
+import GameCard from "./GameCard";
+import GameCardSkeleton from "./GameCardSkeleton";
+
+const GameList = ({
+  selectGenre,
+  selectPlatform,
+  selectSortOrder,
+  selectSearchText,
+}) => {
+  const {
+    data,
+    error,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGame(selectGenre, selectPlatform, selectSortOrder, selectSearchText);
+
+  const skeletonCount = 6; // عرض 6 عناصر وهمية فقط
+
+  if (error)
+    return (
+      <div
+        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span className="font-medium">{error}</span>
+      </div>
+    );
+
+  // دمج جميع العناصر من الصفحات
+  const allGames = data?.pages?.flatMap((page) => page.results) || [];
+
+  return (
+    <>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        {isLoading
+          ? Array.from({ length: skeletonCount }).map((_, index) => (
+              <GameCardSkeleton key={index} />
+            ))
+          : allGames.slice(0, 6).map(
+              (
+                game // عرض جميع العناصر
+              ) => <GameCard key={game.id} game={game} />
+            )}
+      </div>
+
+      {hasNextPage && (
+        <div className="fter:h-px my-24 flex items-center before:h-px before:flex-1  before:bg-gray-300 before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-['']">
+          <button
+            onClick={() => fetchNextPage()}
+            disabled={isFetchingNextPage}
+            type="button"
+            className="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="mr-1 h-4 w-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                clipRule="evenodd"
+              />
+            </svg>
+            {isFetchingNextPage ? "جاري التحميل..." : "تحميل المزيد"}
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default GameList;
+//////////////////////////
+//////////////////////////
+///////////////////////////
 import MainContent from "./componants/MainContent";
 import SideBar from "./componants/SideBar";
 import Nav from "./componants/Nav";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 function App() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light"); //يوس ستايت خاصة لتخزيم وضعية الوضع الليلي سيتم جلب القيمة من المخزن المحلي
 
   //يوستايت شاملة لنظافة الكود
   const [gameQuery, setGameQuery] = useState({});
-
   const root = document.documentElement; //تخزين الصفحة الكاملة بهذا المتغير
 
   useEffect(() => {
@@ -60,7 +193,68 @@ function App() {
 }
 
 export default App;
+import axios from "axios";
 
+export default axios.create({
+  baseURL: "https://api.rawg.io/api",
+  params: {
+    key: "5c8468f1d3a04b989b06e237f0cb6986",
+  },
+});
+//هذا الملف للتحكم بحجم الصورة عن طريق الرابط تبعها باضافة الرقم الذي نريده لتعيين حجمها
+//هذه الدالة مهمتها التعديل على رابط الصورة الذي سينرسله لها
+import noImage from "../assets/images/noImage.jpg"; //اذا لم يكن هنالك صورة موجودة نضع صورة افتراضية مكانها
+const getCroppedImageUrl = (url) => {
+  if (!url) return noImage; //اذا لم تكن هنالك صورة سيرجع null
+  const target = "media/"; //للتنظيم استبدال كلمة ميديا بمتغير لتنظيم الكود
+  const index = url.indexOf(target) + target.length; //البحث عن هذه الكلمة ضمن الرابط ومعرفة الدليل تبعها وتخزينه بالمتغير بالإضافة لطول الكلمة نفسها (ليتم الأضافة بعد هذه الكلمة)
+  return url.slice(0, index) + "crop/600/400/" + url.slice(index); //بهذه التعليمة جلب الرابط من الأول الى نهاية كلمة الميديا واضاف عليها كلمة الحجم التي تحدد الحجم بالإضافة الى الباقي من الكود من الميديا الى النهاية باعتبار اننا خزنا الدليل تبع الميديا بالاندكس
+};
+export default getCroppedImageUrl; //لتصدير هذه الدالة ليتم رؤتها بغير ملفات
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../services/api-client";
+
+const useDataQuery = ({ endPoint, filters }) => {
+  const fetchGames = async () => {
+    const { data } = await apiClient.get(endPoint, { params: filters });
+    return data.results;
+  };
+  return useQuery({
+    queryKey: filters ? ["games", endPoint, filters] : ["games", endPoint], //تم تضمين الفلتر ونهاية الكود ليتم تحديث البيانات عند تحديث اي منهم
+    queryFn: fetchGames,
+  });
+};
+export default useDataQuery;
+import useDataQuery from "../hooks/useDataQuery";
+
+const useGame = (
+  selectGenre,
+  selectPlatform,
+  selectSortOrder,
+  selectSearchText
+) => {
+  return useDataQuery({
+    endPoint: "/games", //تمرير نهاية الرابط
+    filters: {
+      //عن طريق هذه تم الفلترة ببارمترات عدة
+      genres: selectGenre?.id,
+      platforms: selectPlatform?.id,
+      ordering: selectSortOrder,
+      search: selectSearchText,
+    },
+  });
+};
+export default useGame;
+import useDataQuery from "../hooks/useDataQuery";
+
+const useGenres = () => useDataQuery({ endPoint: "/genres" });
+export default useGenres;
+//ملف لجلب بيانات المنصات
+import useDataQuery from "../hooks/useDataQuery";
+
+const usePlatform = () =>
+  useDataQuery({ endPoint: "/platforms/lists/parents" });
+export default usePlatform;
 //كوبونانت لعرض التقييمات
 
 const CriticScore = ({ score }) => {
@@ -165,6 +359,15 @@ const GameHead = ({ selectGenre, selectPlatform, selectSortOrder }) => {
 };
 
 export default GameHead;
+//هذا الكومبونانت الخاص بعرض الأسماء التي يتم الفلرتة بناء عليها
+const GameHead = ({ selectGenre, selectPlatform, selectSortOrder }) => {
+  const heading = `${selectGenre?.name || ""} ${selectPlatform?.name || ""} ${
+    selectSortOrder || ""
+  } Games`;
+  return <h1>{heading}</h1>;
+};
+
+export default GameHead;
 import useGame from "../hooks/useGame";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -176,91 +379,112 @@ const GameList = ({
   selectSortOrder,
   selectSearchText,
 }) => {
-  const { data, error, isloading } = useGame(
+  const { data, error, isLoading } = useGame(
     selectGenre,
     selectPlatform,
     selectSortOrder,
     selectSearchText
   ); //تمرير البروبس الذي يحتوي على المعلومات المفلترة لليوس جايم لجلب البيانات بطريقة مفلترة
-  //   const { games, error, isloading } = useGame(); //فك الداتا التي صلنا عليها من الملف التنظيمي بدل كتابة نفس الكود اكتر من مرة
 
   const skeletonCount = 11; //متغير نحدد من خلاله عدد الكروت الوهمية التي ستظهر ريثما يتم تحميل البيانات
+  if (error)
+    return (
+      <div
+        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span className="font-medium">{error}</span>
+      </div>
+    );
   return (
     <>
-      {error && (
-        <div
-          className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-          role="alert"
-        >
-          <span className="font-medium">{error}</span>
-        </div>
-      )}
       <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {
-          isloading //فحص المتغير هل قيمته ترو ام فولس
-            ? Array.from({ length: skeletonCount }).map(
-                (
-                  index //إذا تحقق الشرط يتم انشاء حلقة لإنشاء عناصر بعدد معين
-                ) => (
-                  <GameCardSkeleton key={index} /> //استدعاء كومبونانت السكيليتون
-                )
-              )
-            : data.map((dd) => <GameCard key={dd.id} game={dd} />) //اذا لم يتحقق الشرط يتم استدعاء الكرت النظامي
-        }
+        {isLoading ? ( //فحص المتغير هل قيمته ترو ام فولس
+          Array.from({ length: skeletonCount })?.map(
+            (
+              _,
+              index //إذا تحقق الشرط يتم انشاء حلقة لإنشاء عناصر بعدد معين
+            ) => (
+              <GameCardSkeleton key={index} /> //استدعاء كومبونانت السكيليتون
+            )
+          )
+        ) : data?.length > 0 ? (
+          data?.map((dd) => <GameCard key={dd.id} game={dd} />) //اذا لم يتحقق الشرط يتم استدعاء الكرت النظامي
+        ) : (
+          <div className="col-span-full text-center text-gray-500">
+            There is no Games
+          </div>
+        )}
       </div>
     </>
   );
 };
 
 export default GameList;
-import useGame from "../hooks/useGame";
-import GameCard from "./GameCard";
-import GameCardSkeleton from "./GameCardSkeleton";
+//كومبونانت لعرض انواع الالعاب التي على  اليسار
+import { useState } from "react";
+import useGenres from "../hooks/useGenres";
 
-//كومبونانت لعرض الكروت
-const GameList = ({
-  selectGenre,
-  selectPlatform,
-  selectSortOrder,
-  selectSearchText,
-}) => {
-  const { data, error, isloading } = useGame(
-    selectGenre,
-    selectPlatform,
-    selectSortOrder,
-    selectSearchText
-  ); //تمرير البروبس الذي يحتوي على المعلومات المفلترة لليوس جايم لجلب البيانات بطريقة مفلترة
-  //   const { games, error, isloading } = useGame(); //فك الداتا التي صلنا عليها من الملف التنظيمي بدل كتابة نفس الكود اكتر من مرة
+const GenreList = ({ onSelectGenre }) => {
+  const { data, isLoading } = useGenres();
+  const [active, setActive] = useState(null); //يوستايت خاصة لتعيين لون مخصص للزر المضغوط
 
-  const skeletonCount = 11; //متغير نحدد من خلاله عدد الكروت الوهمية التي ستظهر ريثما يتم تحميل البيانات
+  //   const { data } = useGenres("/genres"); //استدعاء الملف الذي يجلب الداتا مع اعطاؤه نهاية اللينك الذي سيجلب الداتا منه
+  const handelClick = (id) => {
+    setActive(id);
+  };
+  if (isLoading)
+    return (
+      <div role="status">
+        <svg
+          aria-hidden="true"
+          className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+          viewBox="0 0 100 101"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="currentColor"
+          />
+          <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+            fill="currentFill"
+          />
+        </svg>
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
   return (
     <>
-      {error && (
-        <div
-          className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-          role="alert"
-        >
-          <span className="font-medium">{error}</span>
-        </div>
-      )}
-      <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3">
-        {
-          isloading //فحص المتغير هل قيمته ترو ام فولس
-            ? Array.from({ length: skeletonCount }).map(
-                (
-                  index //إذا تحقق الشرط يتم انشاء حلقة لإنشاء عناصر بعدد معين
-                ) => (
-                  <GameCardSkeleton key={index} /> //استدعاء كومبونانت السكيليتون
-                )
-              )
-            : data.map((dd) => <GameCard key={dd.id} game={dd} />) //اذا لم يتحقق الشرط يتم استدعاء الكرت النظامي
-        }
+      <div className="flex flex-col">
+        {data?.map((d) => (
+          <div key={d.id}>
+            <button
+              className={`flex flex-row text-xs  p-2 w-full hover:bg-slate-400 ${
+                active === d.id ? "bg-green-600 shadow-lg" : ""
+              }`} //تعيين لون مخصص للزر المضغوط
+              onClick={() => {
+                onSelectGenre(d); //عند الضغط على الفئة سيتم الفلترة على اساسها وذلك بارسال هذه المعلومات للأب
+                handelClick(d.id);
+              }}
+            >
+              <img
+                src={d.image_background}
+                width={40}
+                height={40}
+                className="mr-2"
+              />
+              {d.name}
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
 };
 
-export default GameList;
+export default GenreList;
 //إشاء كومبونانت لل لوغو افضل تنظيميا اذا تم استخدام اللوغو بعدة اماكن
 import img from "../assets/images/react.svg";
 
@@ -270,93 +494,6 @@ const Logo = ({ text, className }) => {
 };
 
 export default Logo;
-import GameHead from "./GameHead";
-import GameList from "./GameList";
-import PlatformSelector from "./PlatformSelector";
-import SortSelector from "./SortSelector";
-
-const MainContent = ({
-  selectGenre,
-  selectPlatform,
-  onSelectPlatform,
-  onSelectSortOrder,
-  selectSortOrder,
-  selectSearchText,
-}) => {
-  return (
-    <div className="MainContent col-span-5">
-      <div className="flex gap-6 mb-2 justify-between">
-        <div>
-          <GameHead
-            selectGenre={selectGenre}
-            selectPlatform={selectPlatform}
-            selectSortOrder={selectSortOrder}
-          />
-        </div>
-        <div>
-          <div>
-            <PlatformSelector
-              onSelectPlatform={onSelectPlatform}
-              selectPlatform={selectPlatform}
-            />
-            <SortSelector
-              selectSortOrder={selectSortOrder}
-              onSelectSortOrder={onSelectSortOrder}
-            />
-          </div>
-        </div>
-      </div>
-      <div>
-        <GameList
-          selectGenre={selectGenre}
-          selectPlatform={selectPlatform}
-          selectSortOrder={selectSortOrder}
-          selectSearchText={selectSearchText}
-        />
-      </div>
-    </div>
-  );
-};
-
-export default MainContent;
-//الكومبونانت الخاص بالشريط الرئيسي
-import React from "react";
-import Logo from "./Logo"; //تضمين اللوغو
-import SearchInput from "./SearchInput";
-
-const Nav = ({ toggleTheme, theme, onSearch }) => {
-  return (
-    <>
-      <div className="navbar-app">
-        <div>
-          <Logo text="game app header" className="logo-header" />
-        </div>
-
-        <div className="cover-search mx-2 flex-grow">
-          <SearchInput onSearch={onSearch} />
-        </div>
-        <div className="theme-mode">
-          {/* الزر الذي سيبدل الوضه للوضع الليلي */}
-          <label className="inline-flex items-center me-5 cursor-pointer">
-            <input
-              type="checkbox"
-              value=""
-              className="sr-only peer"
-              onChange={toggleTheme} //عند التغيير سيتم تنفيذ الدالة
-              checked={theme === "dark"} //يكون مختار عندما يكون الثيم دارك
-            />
-            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-            <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-              {theme === "light" ? "light" : "dark"}
-            </span>
-          </label>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default Nav;
 //كومبونانت خاص لعرض الاأيقونات الخاصة بالألعاب التي تظهر المنصات التي تعمل عليها الألعاب
 import { GrPersonalComputer } from "react-icons/gr";
 import { FaPlaystation } from "react-icons/fa";
@@ -400,7 +537,7 @@ import usePlatform from "../hooks/usePlatform";
 
 //كومبونانت خاص للقائمة التي من خلالها سيتم فلترة الألعاب حسب المنصات التي تعمل عليها
 const PlatformSelector = ({ onSelectPlatform, selectPlatform }) => {
-  const { error, data } = usePlatform();
+  const { error, results: data } = usePlatform();
   if (error) return null;
   return (
     <>
@@ -444,7 +581,7 @@ const PlatformSelector = ({ onSelectPlatform, selectPlatform }) => {
               None
             </a>
           </li>
-          {data.map((platform) => (
+          {data?.map((platform) => (
             <li
               key={platform.id}
               onClick={() => onSelectPlatform(platform)}
@@ -487,15 +624,15 @@ const SearchInput = ({ onSearch }) => {
   return (
     <form>
       <label
-        for="default-search"
-        class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+        htmlFor="default-search"
+        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
       >
         Search
       </label>
-      <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+      <div className="relative">
+        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
           <svg
-            class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -515,7 +652,7 @@ const SearchInput = ({ onSearch }) => {
           ref={refValue}
           type="search"
           id="default-search"
-          class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Search Games"
           required
         />
