@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
-import RatingByEmojy from "./RatingByEmojy";
 
 //كومبونانت لتصميم الكرت الذي سنعرضه
 const GameCard = ({ game }) => {

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import useDataQuery from "../hooks/useDataQuery";
-import GameContext from "../componants/GameContext";
+import GameContext from "../components/GameContext";
 
 const useGame = () => {
   const { state } = useContext(GameContext);

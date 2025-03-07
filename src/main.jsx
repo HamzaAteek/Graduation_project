@@ -4,10 +4,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; //اس
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; //أداة التطوير من ريأكت
 import "./index.css";
 import "./App.css";
-import GameProvider from "./componants/gameProvider";
+import GameProvider from "./components/GameProvider";
 
 import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه
-import routers from "./componants/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
+import routers from "./components/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
 
 const queryClient = new QueryClient({
   ////إنشاء كائن جديد حتى نتمكن من استخدامه ضمن المشروع
