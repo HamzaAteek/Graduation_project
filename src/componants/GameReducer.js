@@ -6,7 +6,6 @@ const GameReducer = (state, action) => {
       return { ...state, theme: newTheme };
 
     case "SET_GAME_QUERY":
-      console.log(action.payload);
       return { ...state, gameQuery: { ...state.gameQuery, ...action.payload } };
     default:
       return state;

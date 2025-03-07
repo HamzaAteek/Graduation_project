@@ -6,7 +6,8 @@ import "./index.css";
 import "./App.css";
 import GameProvider from "./componants/gameProvider";
 
-import App from "./App.jsx";
+import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه
+import routers from "./componants/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
 
 const queryClient = new QueryClient({
   ////إنشاء كائن جديد حتى نتمكن من استخدامه ضمن المشروع
@@ -27,7 +28,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <GameProvider>
       <QueryClientProvider client={queryClient}>
-        <App />
+        <RouterProvider router={routers} />
         <ReactQueryDevtools />
       </QueryClientProvider>
     </GameProvider>

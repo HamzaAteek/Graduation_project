@@ -7,7 +7,6 @@ const useGame = () => {
 
   const { selectGenre, selectPlatform, selectSortOrder, selectSearchText } =
     state.gameQuery;
-  console.log(state);
   return useDataQuery({
     endPoint: "/games", //تمرير نهاية الرابط
     filters: {

@@ -23,11 +23,13 @@ const PlatformIconList = ({ platforms }) => {
     web: BsGlobe,
   };
   return (
-    <div className="flex space-x-2 my-2">
-      {platforms.map((platform) => {
+    <div className="flex flex-wrap space-x-2 my-2">
+      {platforms?.map((platform) => {
         //استخدمنا حلقة للمرور على كل العناصر
         const Icon = iconMap[platform.slug];
-        return <Icon key={platform.id} className="w-6 h-6 text-gray-600" />; //هنا تم استدعاء الأيقونة المقابلة لكل اسم موجود بالبلاتفورم.سلاج سيجلب الاسم المقابل للأيقونة ويتم استدعاؤها من فوق
+        return Icon ? (
+          <Icon key={platform.id} className="w-6 h-6 text-gray-600" />
+        ) : null; //هنا تم استدعاء الأيقونة المقابلة لكل اسم موجود بالبلاتفورم.سلاج سيجلب الاسم المقابل للأيقونة ويتم استدعاؤها من فوق
       })}
     </div>
   );

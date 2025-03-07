@@ -4,14 +4,23 @@ import recommended from "../assets/images/recommended.png";
 import meh from "../assets/images/meh.webp";
 import skip from "../assets/images/skip.png";
 
-const RatingByEmojy = ({ rating }) => {
+const RatingByEmojy = ({ rate }) => {
   const emojy = {
-    2: { src: skip, alt: "skip" },
-    3: { src: meh, alt: "meh" },
-    4: { src: recommended, alt: "recommended" },
-    5: { src: exeptional, alt: "exeptional" },
+    skip: { src: skip, alt: "skip" },
+    meh: { src: meh, alt: "meh" },
+    recommended: { src: recommended, alt: "recommended" },
+    exceptional: { src: exeptional, alt: "exeptional" },
   };
-  return <img {...emojy[rating]} width={25} />;
+  return (
+    <>
+      {rate.map((rating) => (
+        <div key={rating.id} className="flex items-center">
+          <img {...emojy[rating.title]} width={25} />
+          <p>{rating.count}</p>
+        </div>
+      ))}
+    </>
+  );
 };
 
 export default RatingByEmojy;
