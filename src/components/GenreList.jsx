@@ -5,9 +5,18 @@ import GameContext from "./GameContext";
 
 const GenreList = () => {
   const { state, dispatch } = useContext(GameContext);
-  const { data, isLoading } = useGenres();
+  const { data, error, isLoading } = useGenres();
 
   if (isLoading) return <div className="loader-genre fixed m-10"></div>;
+  if (error)
+    return (
+      <div
+        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+        role="alert"
+      >
+        <span className="font-medium">{error}</span>
+      </div>
+    );
   return (
     <div className="genre-list-container p-2">
       <div className="flex flex-col space-y-2">

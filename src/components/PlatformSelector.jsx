@@ -7,6 +7,9 @@ const PlatformSelector = () => {
   const { error, data } = usePlatform();
   const { state, dispatch } = useContext(GameContext);
   const [isOpen, setIsOpen] = useState(false);
+  const selectedPlatForms =
+    state?.gameQuery?.selectPlatform?.name || "Platforms:";
+
   //دالة للتحكم بفتح وإغلاق القائمة
   const toggelDropDown = () => {
     setIsOpen(!isOpen);
@@ -29,7 +32,7 @@ const PlatformSelector = () => {
           className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
           type="button"
         >
-          {state.selectPlatform ? state.selectPlatform.name : "Platfroms:"}
+          {selectedPlatForms}
           <svg
             className="w-2.5 h-2.5 ms-3"
             aria-hidden="true"

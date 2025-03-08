@@ -1,9 +1,9 @@
 import { useState } from "react";
-import GameHead from "./GameHead";
-import GameList from "./GameList";
-import PlatformSelector from "./PlatformSelector";
-import SortSelector from "./SortSelector";
-import SideBar from "./SideBar";
+import GameHead from "../components/GameHead";
+import GameList from "../components/GameList";
+import PlatformSelector from "../components/PlatformSelector";
+import SortSelector from "../components/SortSelector";
+import SideBar from "../components/SideBar";
 
 const MainContent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false); //sue state for drawar appear on mobile only

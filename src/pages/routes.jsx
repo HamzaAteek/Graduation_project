@@ -10,7 +10,7 @@ const routers = createBrowserRouter([
     children: [
       //الصفحات الداخلية
       { index: true, element: <MainContent /> },
-      { path: "cardDetails/:id", element: <CardDetails /> },
+      { path: "/pages/CardDetails/:id", element: <CardDetails /> },
     ],
   },
 ]);

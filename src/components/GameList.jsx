@@ -30,7 +30,7 @@ const GameList = () => {
         ) : data?.length > 0 ? (
           data?.map((dd) => <GameCard key={dd.id} game={dd} />) //اذا لم يتحقق الشرط يتم استدعاء الكرت النظامي
         ) : (
-          <div className="col-span-full text-center text-gray-500">
+          <div className="col-span-full text-5xl m-5 text-center text-gray-500">
             There is no Games
           </div>
         )}

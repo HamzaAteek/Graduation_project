@@ -7,7 +7,7 @@ import "./App.css";
 import GameProvider from "./components/GameProvider";
 
 import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه
-import routers from "./components/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
+import routers from "./pages/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
 
 const queryClient = new QueryClient({
   ////إنشاء كائن جديد حتى نتمكن من استخدامه ضمن المشروع

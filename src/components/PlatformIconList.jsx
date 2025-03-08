@@ -23,12 +23,15 @@ const PlatformIconList = ({ platforms }) => {
     web: BsGlobe,
   };
   return (
-    <div className="flex flex-wrap space-x-2 my-2">
+    <div className="flex flex-wrap  my-2">
       {platforms?.map((platform) => {
         //استخدمنا حلقة للمرور على كل العناصر
         const Icon = iconMap[platform.slug];
         return Icon ? (
-          <Icon key={platform.id} className="w-6 h-6 text-gray-600" />
+          <Icon
+            key={platform.id}
+            className="w-6 h-6 mr-2 mt-1 text-gray-600 transition-transform transform hover:scale-105"
+          />
         ) : null; //هنا تم استدعاء الأيقونة المقابلة لكل اسم موجود بالبلاتفورم.سلاج سيجلب الاسم المقابل للأيقونة ويتم استدعاؤها من فوق
       })}
     </div>

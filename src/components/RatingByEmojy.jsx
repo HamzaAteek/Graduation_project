@@ -14,7 +14,10 @@ const RatingByEmojy = ({ rate }) => {
   return (
     <>
       {rate.map((rating) => (
-        <div key={rating.id} className="flex items-center">
+        <div
+          key={rating.id}
+          className="flex items-center  bg-blue-100 dark:bg-slate-200 dark:text-black rounded-md mx-1 p-2"
+        >
           <img {...emojy[rating.title]} width={25} />
           <p>{rating.count}</p>
         </div>
