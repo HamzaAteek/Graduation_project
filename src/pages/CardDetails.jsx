@@ -7,8 +7,10 @@ import RatingByEmojy from "../components/RatingByEmojy";
 
 const CardDetails = () => {
   const { id } = useParams();
-  const { data: game, error, isLoading } = useCard(id);
+  const { data, error, isLoading } = useCard(id);
   const navigate = useNavigate();
+  const game = data?.pages[0];
+  //use state for show more button
   const [showMore, setShowMore] = useState(false);
   const rating = game?.rating_top;
   const noRating = 5 - rating;
@@ -34,14 +36,16 @@ const CardDetails = () => {
 
   return (
     <div className="card-details max-w-4xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-      <div className="flex">
-        <Link to={"/"} className="text-blue-500 block hover:underline">
+      <div className="flex font-semibold">
+        <span>My App /</span>
+
+        <Link to={"/"} className="text-blue-400 block mx-1 hover:underline">
           Games
         </Link>
-        <span> /Card Details</span>
+        <span>/ Card Details</span>
       </div>
       <div className="lg:flex">
-        <div className="carousel__container w-full lg:w-1/2 my-4 mr-6">
+        <div className="carousel__container w-full lg:w-1/2 my-4 mr-10">
           <section className="carousel" aria-label="Gallery">
             <ol className="carousel__viewport">
               <li
@@ -52,15 +56,9 @@ const CardDetails = () => {
                 <div className="carousel__snapper">
                   <img
                     src={game?.background_image}
-                    alt=""
+                    alt={game?.name}
                     className="w-full h-full object-cover"
                   />
-                  <a href="#carousel__slide2" className="carousel__prev">
-                    Go to last slide
-                  </a>
-                  <a href="#carousel__slide2" className="carousel__next">
-                    Go to next slide
-                  </a>
                 </div>
               </li>
               <li
@@ -71,16 +69,10 @@ const CardDetails = () => {
                 <div className="carousel__snapper">
                   <img
                     src={game?.background_image_additional}
-                    alt=""
+                    alt={game?.name}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <a href="#carousel__slide1" className="carousel__prev">
-                  Go to previous slide
-                </a>
-                <a href="#carousel__slide1" className="carousel__next">
-                  Go to next slide
-                </a>
               </li>
             </ol>
             <aside className="carousel__navigation">
@@ -125,7 +117,10 @@ const CardDetails = () => {
           </div>
           <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
             Play Time:{" "}
-            <span className="font-bold text-lg">{game?.playtime}</span> Hours
+            <span className="font-bold text-lg text-black dark:text-white">
+              {game?.playtime}
+            </span>{" "}
+            Hours
           </p>
           <div className="flex mb-3">
             <RatingByEmojy rate={game?.ratings} />

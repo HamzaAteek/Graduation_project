@@ -10,10 +10,8 @@ const CriticScore = ({ score }) => {
       ? "bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300"
       : "bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300";
   return (
-    <span
-      className={`text-xs font-medium me-2 px-2.5 py-0.5 rounded ${colorClass}`}
-    >
-      {score}
+    <span className={`text-xs font-medium p-0.5 rounded ${colorClass}`}>
+      {score ? score : "No Rating"}
     </span>
   );
 };

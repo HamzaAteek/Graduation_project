@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import GameContext from "./GameContext";
+import GameContext from "../hooks/GameContext";
 
 const SortSelector = () => {
   //مصفوفة تحتوي على القيم لفرز الألعاب حسب عدة قيم من الapi
@@ -63,7 +63,7 @@ const SortSelector = () => {
       {isOpen && (
         <div
           id="sortDropdown"
-          className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
+          className="z-10 w-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm  dark:bg-gray-700"
         >
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"

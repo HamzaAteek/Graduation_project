@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import Nav from "../components/Nav";
 import { Outlet } from "react-router-dom";
-import GameContext from "../components/GameContext";
+import GameContext from "../hooks/GameContext";
 
 const Layout = () => {
   const { state } = useContext(GameContext);

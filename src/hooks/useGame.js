@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import useDataQuery from "../hooks/useDataQuery";
-import GameContext from "../components/GameContext";
+import GameContext from "./GameContext";
 
 const useGame = () => {
   const { state } = useContext(GameContext);
@@ -15,6 +15,7 @@ const useGame = () => {
       platforms: selectPlatform?.id,
       ordering: selectSortOrder,
       search: selectSearchText,
+      page_size: 6,
     },
   });
 };

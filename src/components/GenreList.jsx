@@ -1,11 +1,12 @@
 //كومبونانت لعرض انواع الالعاب التي على  اليسار
 import { useContext } from "react";
 import useGenres from "../hooks/useGenres";
-import GameContext from "./GameContext";
+import GameContext from "../hooks/GameContext";
 
 const GenreList = () => {
   const { state, dispatch } = useContext(GameContext);
   const { data, error, isLoading } = useGenres();
+  const genres = data?.pages[0]?.results;
 
   if (isLoading) return <div className="loader-genre fixed m-10"></div>;
   if (error)
@@ -18,34 +19,36 @@ const GenreList = () => {
       </div>
     );
   return (
-    <div className="genre-list-container p-2">
+    <div className="genre-list-container p-1">
       <div className="flex flex-col space-y-2">
-        {data?.map((d) => (
-          <div key={d.id} className="genre-item">
+        {genres?.map((genre) => (
+          <div key={genre.id} className="genre-item">
             <button
-              className={`flex items-center justify-start text-sm p-3 w-full rounded-lg transition-colors duration-200 ${
-                state?.gameQuery?.active === d.id
-                  ? "bg-green-600 text-white shadow-lg"
+              className={`flex flex-col md:flex-row items-center md:justify-start justify-center text-xs p-1 w-full rounded-lg transition-colors duration-200 ${
+                state?.gameQuery?.active === genre.id
+                  ? "bg-green-300 text-black shadow-lg"
                   : "bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600"
               }`}
               onClick={() =>
                 dispatch({
                   type: "SET_GAME_QUERY",
                   payload: {
-                    selectGenre: state?.gameQuery?.active === d.id ? null : d,
-                    active: state?.gameQuery?.active === d.id ? null : d.id,
+                    selectGenre:
+                      state?.gameQuery?.active === genre.id ? null : genre,
+                    active:
+                      state?.gameQuery?.active === genre.id ? null : genre.id,
                   },
                 })
               }
             >
               <img
-                src={d.image_background}
-                alt={d.name}
+                src={genre.image_background}
+                alt={genre.name}
                 width={40}
                 height={40}
-                className="mr-3 rounded-md"
+                className="mb-2 md:mr-4 rounded-md"
               />
-              <span className="font-medium">{d.name}</span>
+              <span className="font-medium">{genre.name}</span>
             </button>
           </div>
         ))}

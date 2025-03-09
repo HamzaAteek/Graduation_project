@@ -1,5 +1,5 @@
 import { useContext, useRef } from "react";
-import GameContext from "./GameContext";
+import GameContext from "../hooks/GameContext";
 
 const SearchInput = () => {
   const { dispatch } = useContext(GameContext);

@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; //اس
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; //أداة التطوير من ريأكت
 import "./index.css";
 import "./App.css";
-import GameProvider from "./components/GameProvider";
+import GameProvider from "./hooks/GameProvider.jsx";
 
 import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه
 import routers from "./pages/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات

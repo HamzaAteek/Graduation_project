@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import usePlatform from "../hooks/usePlatform";
-import GameContext from "./GameContext";
+import GameContext from "../hooks/GameContext";
 
 //كومبونانت خاص للقائمة التي من خلالها سيتم فلترة الألعاب حسب المنصات التي تعمل عليها
 const PlatformSelector = () => {
   const { error, data } = usePlatform();
+  const selector = data?.pages[0]?.results;
   const { state, dispatch } = useContext(GameContext);
   const [isOpen, setIsOpen] = useState(false);
   const selectedPlatForms =
@@ -52,7 +53,7 @@ const PlatformSelector = () => {
         {isOpen && (
           <div
             id="platformDropdown"
-            className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
+            className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-auto dark:bg-gray-700"
           >
             <ul
               className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -64,7 +65,7 @@ const PlatformSelector = () => {
                   None
                 </a>
               </li>
-              {data?.map((platform) => (
+              {selector.map((platform) => (
                 <li
                   key={platform.id}
                   onClick={() => handleSelect(platform)}
