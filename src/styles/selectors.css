@@ -1,0 +1,15 @@
+.drop-down-button {
+  @apply inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
+}
+.drop-down-button svg {
+  @apply w-2.5 h-2.5 ms-3 mt-1;
+}
+.drop-down-list {
+  @apply z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-auto dark:bg-gray-700;
+}
+.drop-down-list ul {
+  @apply py-2 text-sm text-gray-700 dark:text-gray-200;
+}
+.drop-down-list ul li {
+  @apply block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer;
+}

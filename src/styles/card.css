@@ -1,0 +1,60 @@
+/*----- critic score start -----*/
+.more-than-90 {
+  @apply bg-green-300 text-green-900 dark:bg-green-900 dark:text-green-300;
+}
+.more-than-85 {
+  @apply bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300;
+}
+.less-than-85 {
+  @apply bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300;
+}
+.score-text {
+  @apply text-xs font-medium p-0.5 rounded;
+}
+/*----- critic score end -----*/
+/*----- start game card -----*/
+.game-card {
+  @apply max-w-sm cursor-pointer bg-gray-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition-transform translate-x-1 hover:scale-105 hover:shadow-md dark:hover:shadow-cyan-500 hover:shadow-slate-400;
+}
+.game-image {
+  @apply rounded-t-lg w-full h-52;
+}
+.game-info {
+  @apply p-5 flex flex-col justify-between;
+}
+.game-title {
+  @apply mb-2 row-span-1 tracking-wide font-bold hover:underline text-gray-900 dark:text-white;
+}
+.game-details {
+  @apply flex justify-between items-center relative flex-wrap;
+}
+.critic-div {
+  @apply absolute bottom-2 right-2;
+}
+.platform-icon-list {
+  @apply flex flex-wrap  my-2;
+}
+.platform-icon {
+  @apply w-6 h-6 mr-2 mt-1 text-gray-600 transition-transform transform hover:scale-125;
+}
+/*----- end game card -----*/
+/*----- start game list -----*/
+.error-message {
+  @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
+}
+.game-list {
+  @apply grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3;
+}
+.no-game {
+  @apply col-span-full text-5xl m-5 text-center text-gray-500;
+}
+.view-more {
+  @apply my-24 flex items-center before:flex-1 before:h-px hover:before:bg-gray-700 dark:before:bg-white dark:after:bg-white before:bg-gray-700 after:flex-1 after:h-px after:bg-gray-700;
+}
+.view-more-button {
+  @apply flex items-center rounded-full border dark:border-white border-gray-700  px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-900 hover:text-white dark:text-white dark:hover:text-gray-900 dark:hover:bg-white;
+}
+.view-more-button svg {
+  @apply mr-1 h-4 w-4;
+}
+/*----- end game list -----*/

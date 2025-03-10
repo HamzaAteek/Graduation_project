@@ -1,9 +1,9 @@
-//إشاء كومبونانت لل لوغو افضل تنظيميا اذا تم استخدام اللوغو بعدة اماكن
+//logo component
 import img from "../assets/images/react.svg";
 
 const Logo = ({ text, className }) => {
-  //استدعاء الصورة مع تمرير نص كبروبس وتمرير التنسيقات كبروبس
-  return <img src={img} alt={text} className={`logo ${className}`} />; //اعطاء الصورة كلاسين واحد رئيسي والثاني يمرر كبروبس
+  //handel the text and the class
+  return <img src={img} alt={text} className={`logo ${className}`} />; //return the image with the text and the class
 };
 
 export default Logo;

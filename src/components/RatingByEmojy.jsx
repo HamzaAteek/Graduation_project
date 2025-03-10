@@ -1,11 +1,12 @@
-//كومبونانت لعرض التقيمات كصور
+//Component to display ratings images
 import exeptional from "../assets/images/exeptional.png";
 import recommended from "../assets/images/recommended.png";
 import meh from "../assets/images/meh.webp";
 import skip from "../assets/images/skip.png";
-
+import "../styles/card-details.css";
 const RatingByEmojy = ({ rate }) => {
   const emojy = {
+    //this object for optimization
     skip: { src: skip, alt: "skip" },
     meh: { src: meh, alt: "meh" },
     recommended: { src: recommended, alt: "recommended" },
@@ -14,10 +15,7 @@ const RatingByEmojy = ({ rate }) => {
   return (
     <>
       {rate.map((rating) => (
-        <div
-          key={rating.id}
-          className="flex items-center  bg-blue-100 dark:bg-slate-200 dark:text-black rounded-md mx-1 p-2"
-        >
+        <div key={rating.id} className="emojy">
           <img {...emojy[rating.title]} width={25} />
           <p>{rating.count}</p>
         </div>

@@ -1,14 +1,13 @@
-//كومبونانت لعرض الثائمة التي على اليسار
+//sidebar component
 import GenreList from "./GenreList";
 
 const SideBar = () => {
-  //تمرير الدالة كوسيط للابن
   return (
-    <div className="sidebar">
+    <div>
       <h1 className="text-center">Gerers Games</h1>
       <GenreList />
     </div>
-  ); //استدعاء الكومبونانت الذي يحتوي على الانواع
+  );
 };
 
 export default SideBar;

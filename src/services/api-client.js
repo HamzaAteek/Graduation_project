@@ -1,3 +1,4 @@
+//Central file to fetch the data
 import axios from "axios";
 
 export default axios.create({

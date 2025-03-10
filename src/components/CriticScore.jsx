@@ -1,16 +1,11 @@
-//كوبونانت لعرض التقييمات
-
+//component to display the critic score of a movie
+import "../styles/card.css";
 const CriticScore = ({ score }) => {
-  //يتم تلوين العنصر بناء على تصنيفه
-  // var color = score > 90 ? "orange" : score > 85 ? "yellow" : "";
+  //color of the score based on the score value
   const colorClass =
-    score > 90
-      ? "bg-green-300 text-green-900 dark:bg-green-900 dark:text-green-300"
-      : score > 85
-      ? "bg-yellow-300 text-yellow-900 dark:bg-yellow-900 dark:text-yellow-300"
-      : "bg-red-300 text-red-900 dark:bg-red-900 dark:text-red-300";
+    score > 90 ? "more-than-90" : score > 85 ? "more-than-85" : "less-than-85";
   return (
-    <span className={`text-xs font-medium p-0.5 rounded ${colorClass}`}>
+    <span className={`score-text ${colorClass}`}>
       {score ? score : "No Rating"}
     </span>
   );

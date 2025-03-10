@@ -1,31 +1,31 @@
+//Card details component
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useCard from "../hooks/useCard";
-import "../styles/information.css";
+import "../styles/card-details.css";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import RatingByEmojy from "../components/RatingByEmojy";
 
 const CardDetails = () => {
-  const { id } = useParams();
-  const { data, error, isLoading } = useCard(id);
+  const { id } = useParams(); //fetch the game id from link from the chossen card
+  const { data, error, isLoading } = useCard(id); //fetch data
   const navigate = useNavigate();
   const game = data?.pages[0];
-  //use state for show more button
+
+  //use state for (show more) button
   const [showMore, setShowMore] = useState(false);
+  //fetch rating
   const rating = game?.rating_top;
   const noRating = 5 - rating;
   if (isLoading)
     return (
-      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white dark:bg-gray-900">
+      <div className="loading-spinner">
         <div className="loader"></div>
       </div>
     );
   if (error)
     return (
-      <div
-        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-        role="alert"
-      >
+      <div className="error-message" role="alert">
         <span className="font-medium">{error}</span>
       </div>
     );
@@ -35,17 +35,18 @@ const CardDetails = () => {
   };
 
   return (
-    <div className="card-details max-w-4xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-      <div className="flex font-semibold">
+    <div className="card-details">
+      <div className="path">
         <span>My App /</span>
 
-        <Link to={"/"} className="text-blue-400 block mx-1 hover:underline">
+        <Link to={"/"} className="link">
           Games
         </Link>
         <span>/ Card Details</span>
       </div>
       <div className="lg:flex">
-        <div className="carousel__container w-full lg:w-1/2 my-4 mr-10">
+        {/* for display images slides */}
+        <div className="carousel__container">
           <section className="carousel" aria-label="Gallery">
             <ol className="carousel__viewport">
               <li
@@ -57,7 +58,7 @@ const CardDetails = () => {
                   <img
                     src={game?.background_image}
                     alt={game?.name}
-                    className="w-full h-full object-cover"
+                    className="carousel-img"
                   />
                 </div>
               </li>
@@ -70,7 +71,7 @@ const CardDetails = () => {
                   <img
                     src={game?.background_image_additional}
                     alt={game?.name}
-                    className="w-full h-full object-cover"
+                    className="carousel-img"
                   />
                 </div>
               </li>
@@ -93,14 +94,12 @@ const CardDetails = () => {
             </aside>
           </section>
         </div>
+
+        {/* display rating */}
         <div className="w-full lg:w-1/2">
-          <h1 className="text-3xl mb-6 font-bold text-gray-900 dark:text-white mt-4">
-            {game?.name}
-          </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-            Released: {game?.released}
-          </p>
-          <div className="text-gray-600 flex dark:text-gray-300 text-sm mb-4">
+          <h1 className="game-name">{game?.name}</h1>
+          <p className="game-release">Released: {game?.released}</p>
+          <div className="game-rate">
             Rating:
             <div className="flex p-1">
               <div className="flex text-yellow-500">
@@ -108,60 +107,42 @@ const CardDetails = () => {
                   <FaStar key={i} />
                 ))}
               </div>
-              <div className="flex dark:text-gray-200 text-gray-400">
+              <div className="stars">
                 {[...Array(noRating)].map((_, i) => (
                   <FaStar key={i} />
                 ))}
               </div>
             </div>
           </div>
-          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
-            Play Time:{" "}
-            <span className="font-bold text-lg text-black dark:text-white">
-              {game?.playtime}
-            </span>{" "}
-            Hours
+          <p className="play-time">
+            Play Time: <span>{game?.playtime}</span> Hours
           </p>
           <div className="flex mb-3">
             <RatingByEmojy rate={game?.ratings} />
           </div>
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="genres-game">
             {game?.genres?.map((genre) => (
-              <span
-                key={genre?.id}
-                className="px-3 py-2 bg-blue-500 text-white text-xs rounded-lg"
-              >
-                {genre?.name}
-              </span>
+              <span key={genre?.id}>{genre?.name}</span>
             ))}
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2 mb-4 pr-6 sm:w-1/2 md:w-3/4">
+      {/* display game platfroms */}
+
+      <div className="game-platform">
         {game?.platforms?.map((platform) => (
-          <span
-            key={platform.platform.id}
-            className="px-3 py-1 bg-gray-700 text-white text-xs rounded-lg"
-          >
-            {platform.platform.name}
-          </span>
+          <span key={platform.platform.id}>{platform.platform.name}</span>
         ))}
       </div>
-      <p className="text-gray-700 dark:text-gray-300 text-sm pr-6">
+      <p className="game-desc">
         {showMore
           ? game?.description_raw
           : `${game?.description_raw?.substring(0, 100)}...`}
       </p>
-      <button
-        onClick={handleShowMore}
-        className="text-blue-500 block hover:underline"
-      >
+      <button onClick={handleShowMore} className="show-more">
         {showMore ? "Show Less" : "Show More"}
       </button>
-      <button
-        onClick={() => navigate("/")}
-        className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
-      >
+      <button onClick={() => navigate("/")} className="back-game-button">
         &#8678; Back to Games
       </button>
     </div>

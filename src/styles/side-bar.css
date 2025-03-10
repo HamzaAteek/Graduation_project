@@ -1,0 +1,23 @@
+/* start genres section*/
+.loader-genre {
+  @apply fixed m-10;
+}
+.error-message {
+  @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
+}
+.genre-list-container {
+  @apply p-1 flex flex-col space-y-2;
+}
+.genre-button {
+  @apply flex flex-col md:flex-row items-center md:justify-start justify-center text-xs p-1 w-full rounded-lg transition-colors duration-200 ease-in-out;
+}
+.active {
+  @apply bg-green-300 text-black shadow-lg;
+}
+.not-active {
+  @apply bg-gray-200 dark:bg-gray-700 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600;
+}
+.genre-button img {
+  @apply mb-2 md:mr-4 rounded-md;
+}
+/* end genres section */

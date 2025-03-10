@@ -1,16 +1,17 @@
-import { createBrowserRouter } from "react-router-dom"; //استدعاء الدالة المسؤولة عن معالجة التوجيه
+//Router file
+import { createBrowserRouter } from "react-router-dom"; //Call the function responsible for handling the routing
 import CardDetails from "./CardDetails";
 import Layout from "./Layout";
 import MainContent from "./MainContent";
 const routers = createBrowserRouter([
-  //كل كائن يمثل صفحة معينة
+  //Each object represents a specific page
   {
     path: "/",
     element: <Layout />,
     children: [
-      //الصفحات الداخلية
+      //inner pages
       { index: true, element: <MainContent /> },
-      { path: "/pages/CardDetails/:id", element: <CardDetails /> },
+      { path: "/pages/CardDetails/:id", element: <CardDetails /> }, //pass the path with id
     ],
   },
 ]);

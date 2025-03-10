@@ -1,46 +1,47 @@
+//Main content page
 import { useState, useEffect } from "react";
 import GameHead from "../components/GameHead";
 import GameList from "../components/GameList";
 import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import SideBar from "../components/SideBar";
+import "../styles/main-page.css";
 
 const MainContent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
-  // مراقبة التمرير لإظهار الزر
+  //function for display the back button to the start
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollButton(window.scrollY > 100); // يظهر بعد 100px
+      setShowScrollButton(window.scrollY > 100); //the button will display after 100 px
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // العودة إلى أعلى الصفحة
+  //for back to the start of page
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div className="MainContent grid grid-cols-12 p-4 gap-4">
-      <div className="col-span-3 lg:col-span-2">
+    <div className="MainContent ">
+      <div className="side-bar">
         <SideBar />
       </div>
 
-      <div className="col-span-9 lg:col-span-10 pr-4">
-        <div className="flex justify-between items-center mb-4">
+      <div className="app-bar">
+        <div className="app-head">
           <GameHead />
-          <div className="hidden md:flex space-x-4">
+          <div className="selectors">
             <PlatformSelector />
             <SortSelector />
           </div>
 
           {/* Mobile Drawer Button */}
           <button
-            className="md:hidden text-gray-900 dark:text-white text-2xl"
+            className="drawer-button"
             onClick={() => setIsDrawerOpen(true)}
           >
             ☰
@@ -51,17 +52,12 @@ const MainContent = () => {
 
       {/* Mobile Drawer */}
       {isDrawerOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
-          <div className="w-64 h-full bg-white dark:bg-gray-900 p-6 shadow-lg">
-            <button
-              className="text-gray-900 dark:text-white text-2xl mb-4"
-              onClick={() => setIsDrawerOpen(false)}
-            >
+        <div className="drawer">
+          <div className="sub">
+            <button className="btn" onClick={() => setIsDrawerOpen(false)}>
               ✖
             </button>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              Filters By:
-            </h3>
+            <h3 className="filter-by">Filters By:</h3>
             <div className="mb-4">
               <PlatformSelector />
             </div>
@@ -72,11 +68,11 @@ const MainContent = () => {
         </div>
       )}
 
-      {/*زر العودة للأعلى  */}
+      {/* button to bach home */}
       {showScrollButton && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 active:scale-95 flex items-center justify-center"
+          className="btn-home"
           style={{
             width: "55px",
             height: "55px",

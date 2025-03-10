@@ -1,21 +1,15 @@
+//Search Input Component
 import { useContext, useRef } from "react";
 import GameContext from "../hooks/GameContext";
-
+import "../styles/nav-bar.css";
 const SearchInput = () => {
   const { dispatch } = useContext(GameContext);
   const refValue = useRef();
   return (
     <form>
-      <label
-        htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-      >
-        Search
-      </label>
       <div className="relative">
-        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+        <div className="search-icon">
           <svg
-            className="w-4 h-4 text-gray-500 dark:text-gray-400"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -32,6 +26,7 @@ const SearchInput = () => {
         </div>
         <input
           onChange={() =>
+            //call function every change for more responding
             dispatch({
               type: "SET_GAME_QUERY",
               payload: { selectSearchText: refValue.current.value },
@@ -40,7 +35,7 @@ const SearchInput = () => {
           ref={refValue}
           type="search"
           id="default-search"
-          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="search-input"
           placeholder="Search Games"
           required
         />

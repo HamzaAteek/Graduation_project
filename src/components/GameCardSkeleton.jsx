@@ -1,25 +1,26 @@
-//كومبونانت خاص لعرض السكيليتون العناصر اتلوهمية مكان العناصر الأساسية بينما يتم تحميلها
+//component to show the skeleton of the game card while loading the data
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import "react-loading-skeleton/dist/skeleton.css"; //skeleton library
+import "../styles/card.css";
 
 const GameCardSkeleton = () => {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      {/* عرض الصورة */}
+    <div className="game-card">
+      {/* display image  */}
       <div className="rounded-t-lg w-full h-50">
         <Skeleton height={200} className="w-full h-full" />
       </div>
-      <div className="p-5">
-        {/* عرض اسم اللعبة */}
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+      <div className="game-info">
+        {/* display title game place */}
+        <h5 className="game-title">
           <Skeleton width={150} />
         </h5>
-        {/* عرض المنصات التي تعمل عليها كل لعبة */}
-        <div className="flex justify-between items-center">
+        {/* platform place */}
+        <div className="game-details">
           <div className="platform">
             <Skeleton width={100} />
           </div>
-          <div className="score">
+          <div className="crirtic-div">
             <Skeleton width={40} height={20} />
           </div>
         </div>

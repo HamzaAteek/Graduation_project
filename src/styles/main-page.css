@@ -1,0 +1,36 @@
+.layout {
+  @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white;
+}
+.MainContent {
+  @apply grid grid-cols-12 p-4 gap-4;
+}
+.side-bar {
+  @apply col-span-3 lg:col-span-2;
+}
+.app-bar {
+  @apply col-span-9 lg:col-span-10 pr-4;
+}
+.app-head {
+  @apply flex justify-between items-center mb-4;
+}
+.selectors {
+  @apply hidden md:flex space-x-4;
+}
+.drawer-button {
+  @apply md:hidden text-gray-900 dark:text-white text-2xl;
+}
+.drawer {
+  @apply fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end;
+}
+.sub {
+  @apply w-64 h-full bg-white dark:bg-gray-900 p-6 shadow-lg;
+}
+.btn {
+  @apply text-gray-900 dark:text-white text-2xl mb-4;
+}
+.filter-by {
+  @apply text-lg font-semibold text-gray-900 dark:text-white mb-4;
+}
+.btn-home {
+  @apply fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 active:scale-95 flex items-center justify-center;
+}

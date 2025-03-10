@@ -1,4 +1,4 @@
-//كومبونانت خاص لعرض الاأيقونات الخاصة بالألعاب التي تظهر المنصات التي تعمل عليها الألعاب
+//A component to display game icons that show the platforms the games run on.
 import { GrPersonalComputer } from "react-icons/gr";
 import { FaPlaystation } from "react-icons/fa";
 import { FaXbox } from "react-icons/fa";
@@ -8,10 +8,10 @@ import { FaAndroid } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { BsGlobe } from "react-icons/bs";
 import { FaLinux } from "react-icons/fa";
-
+import "../styles/card.css";
 const PlatformIconList = ({ platforms }) => {
   const iconMap = {
-    //عرفنا اوبجكت لكي نخزن فيه كل اسم ايقونة بالأي بي اي مقابله باسم الايقونة التي سنضيفها
+    //this object will store the name of the icon with the name of the icon that we will add
     pc: GrPersonalComputer,
     playstation: FaPlaystation,
     xbox: FaXbox,
@@ -23,16 +23,12 @@ const PlatformIconList = ({ platforms }) => {
     web: BsGlobe,
   };
   return (
-    <div className="flex flex-wrap  my-2">
+    <div className="platform-icon-list">
       {platforms?.map((platform) => {
-        //استخدمنا حلقة للمرور على كل العناصر
-        const Icon = iconMap[platform.slug];
+        const Icon = iconMap[platform.slug]; //Here the icon corresponding to each name on the platform is called will fetch the name corresponding to the icon and call it from above.
         return Icon ? (
-          <Icon
-            key={platform.id}
-            className="w-6 h-6 mr-2 mt-1 text-gray-600 transition-transform transform hover:scale-105"
-          />
-        ) : null; //هنا تم استدعاء الأيقونة المقابلة لكل اسم موجود بالبلاتفورم.سلاج سيجلب الاسم المقابل للأيقونة ويتم استدعاؤها من فوق
+          <Icon key={platform.id} className="platform-icon" />
+        ) : null;
       })}
     </div>
   );

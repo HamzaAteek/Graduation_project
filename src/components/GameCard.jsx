@@ -1,39 +1,38 @@
+//comonant to design the card that will be displayed
 import { useNavigate } from "react-router-dom";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
+import "../styles/card.css";
 
-//كومبونانت لتصميم الكرت الذي سنعرضه
 const GameCard = ({ game }) => {
-  const navigate = useNavigate(); //تعرف الدالة المسؤالة عن التحويل للصفحة المطلوبة
+  //this props will be passed to the component
+  const navigate = useNavigate(); //the hook that will be used to navigate to another page
   return (
     <div
       onClick={() => {
-        navigate(`../pages/CardDetails/${game.id}`); //عند الضغط على اي جزء من الكرت سيتم التحويل للصفحة مع ارسال رقم تعريف الركت المضغوط عليه
+        navigate(`../pages/CardDetails/${game.id}`); //when the card is clicked, the user will be navigated to the details page of the game
       }}
-      className="max-w-sm cursor-pointer bg-gray-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition-transform translate-x-1 hover:scale-105 hover:shadow-md dark:hover:shadow-cyan-500 hover:shadow-slate-400"
+      className="game-card"
     >
-      {/* عرض الصورة */}
+      {/* display the image */}
       <img
-        className="rounded-t-lg w-full h-50"
-        src={getCroppedImageUrl(game.background_image)} //استدعاء الدالة التي ستعرض الصورة بحجم محدد وتمرير رابط الصورة لها
+        className="game-image"
+        src={getCroppedImageUrl(game.background_image)} //display the image of the game with width and height specified
         alt={game.name}
       />
-      <div className="p-5 flex flex-col justify-between">
-        {/* عرض اسم كل لعبة */}
+      <div className="game-info">
+        {/* display game */}
         <div>
-          <h5 className="mb-2 row-span-1 tracking-wide font-bold hover:underline text-gray-900 dark:text-white">
-            {game.name}
-          </h5>
+          <h5 className="game-title">{game.name}</h5>
         </div>
-        <div className="flex justify-between items-center relative flex-wrap">
-          {/* عرض المنصات التي تعمل عليها كل لعبة */}
+        <div className="game-details">
+          {/* platforms game */}
           <PlatformIconList
             platforms={game.parent_platforms?.map((p) => p.platform) || []}
           />
-          {/* عرض تقييم كل لعبة */}
-
-          <div className="absolute bottom-2 right-2">
+          {/* the critic for every game */}
+          <div className="crirtic-div">
             <CriticScore score={game.metacritic} />
           </div>
         </div>

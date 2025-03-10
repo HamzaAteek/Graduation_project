@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+//Component for sort selector
+import { useContext, useState } from "react";
 import GameContext from "../hooks/GameContext";
-
+import "../styles/selectors.css";
 const SortSelector = () => {
-  //مصفوفة تحتوي على القيم لفرز الألعاب حسب عدة قيم من الapi
   const sortOrders = [
+    //Array containing values ​​to sort games by values ​​from the API
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
     { value: "name", label: "Name" },
@@ -11,17 +12,17 @@ const SortSelector = () => {
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average rating" },
   ];
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); //use satate for drop down
 
   const { state, dispatch } = useContext(GameContext);
   const selectedSortLabel =
     state?.gameQuery?.selectSortOrderLabel || "Order by: ";
-  //دالة لفتح واغلاق القائمة
+  //this function for control close and open the drop down list
   const toggleDropDown = () => {
     setIsOpen(!isOpen);
   };
 
-  //دالة اختيار العنصر وإغلاق القائمة
+  //this function for choose the platform and close the list
   const handleSelect = (order) => {
     dispatch({
       type: "SET_GAME_QUERY",
@@ -30,14 +31,14 @@ const SortSelector = () => {
         selectSortOrderLabel: order.label,
       },
     });
-    setIsOpen(false); //إغلاق القائمة بعد الاختيار
+    setIsOpen(false);
   };
 
   return (
     <div>
       <button
-        onClick={toggleDropDown} //عند الضغط على القائمة يتم فتحها او اغلاقها
-        className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+        onClick={toggleDropDown}
+        className="drop-down-button"
         id="sortDropdownButton"
         aria-expanded="true"
         aria-haspopup="true"
@@ -45,7 +46,6 @@ const SortSelector = () => {
       >
         {selectedSortLabel}
         <svg
-          className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -60,23 +60,14 @@ const SortSelector = () => {
           />
         </svg>
       </button>
-      {isOpen && (
-        <div
-          id="sortDropdown"
-          className="z-10 w-auto absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm  dark:bg-gray-700"
-        >
-          <ul
-            className="py-2 text-sm text-gray-700 dark:text-gray-200"
-            aria-labelledby="sortDropdownButton"
-          >
-            <li onClick={() => handleSelect("")}>
-              <a className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white">
-                None
-              </a>
-            </li>
+      {isOpen && ( //if the list is open
+        <div id="sortDropdown" className="drop-down-list">
+          <ul aria-labelledby="sortDropdownButton">
+            <li onClick={() => handleSelect("")}>None</li>
+            {/* map on the items in the array */}
+
             {sortOrders.map((order) => (
               <li
-                className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
                 key={order.value}
                 value={order.value}
                 onClick={() => handleSelect(order)}
