@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import useGenres from "../hooks/useGenres"; //uses the useGenres hook to fetch the genres from the API
 import GameContext from "../hooks/GameContext"; //uses the GameContext to update the state when a genre is selected.
-import "../styles/side-bar.css";
+import "../assets/styles/side-bar.css";
 const GenreList = () => {
   const { state, dispatch } = useContext(GameContext);
   const { data, error, isLoading } = useGenres();
@@ -22,7 +22,7 @@ const GenreList = () => {
         <div key={genre.id}>
           <button
             className={`genre-button ${
-              state?.gameQuery?.active === genre.id ? "active" : "not-active"
+              state?.gameQuery?.activ === genre.id ? "activ" : "not-active"
             }`}
             onClick={() =>
               dispatch({
@@ -30,10 +30,9 @@ const GenreList = () => {
                 type: "SET_GAME_QUERY",
                 payload: {
                   selectGenre:
-                    state?.gameQuery?.active === genre.id ? null : genre,
+                    state?.gameQuery?.activ === genre.id ? null : genre,
                   //for remove active class when click on the same genre
-                  active:
-                    state?.gameQuery?.active === genre.id ? null : genre.id,
+                  activ: state?.gameQuery?.activ === genre.id ? null : genre.id,
                 },
               })
             }

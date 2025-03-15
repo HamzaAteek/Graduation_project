@@ -1,0 +1,65 @@
+/* start toggel theme component */
+.navbar-app {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  @apply dark:border-white;
+  border-bottom: 2px black solid;
+}
+.logo-header {
+  margin-left: 5px;
+  width: 50px;
+  height: 50px;
+}
+
+.toggle-button-text {
+  @apply flex flex-col items-center mt-1 justify-center me-5 cursor-pointer;
+}
+.toggle-theme-button {
+  @apply relative  w-11 h-6 bg-blue-300 rounded-full  after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600;
+}
+.toggle-button-state {
+  @apply mt-1 text-sm font-medium text-gray-900 dark:text-gray-300;
+}
+/* End toggel theme component */
+
+/*---- Start Nav -----*/
+.nav-bar {
+  @apply max-w-7xl mx-auto sticky w-full px-4 flex text-2xl space-x-4 font-semibold p-4 md:space-x-8 justify-between h-16 items-center;
+}
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease-in-out;
+  @apply text-gray-500 dark:text-gray-200;
+}
+.nav-link:hover {
+  @apply text-black dark:text-white;
+}
+.nav-link:hover::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -27px;
+  width: 100%;
+  height: 3px;
+  @apply bg-black dark:bg-white;
+  border-radius: 2px;
+}
+
+.active {
+  font-weight: 600;
+  @apply text-blue-500 dark:text-blue-500;
+}
+
+.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -27px;
+  width: 100%;
+  height: 4px;
+  background-color: #2563eb;
+  border-radius: 2px;
+}
+/*---- End Nav -----*/

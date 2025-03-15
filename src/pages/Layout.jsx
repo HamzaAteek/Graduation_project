@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import Nav from "../components/Nav";
 import { Outlet } from "react-router-dom";
 import GameContext from "../hooks/GameContext";
-import "../styles/main-page.css";
+import "../assets/styles/main-page.css";
 const Layout = () => {
   const { state } = useContext(GameContext);
   const { theme } = state;

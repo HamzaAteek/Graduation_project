@@ -1,7 +1,7 @@
 //component to show the skeleton of the game card while loading the data
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css"; //skeleton library
-import "../styles/card.css";
+import "../assets/styles/card.css";
 
 const GameCardSkeleton = () => {
   return (

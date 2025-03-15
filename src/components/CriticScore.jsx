@@ -1,5 +1,5 @@
 //component to display the critic score of a movie
-import "../styles/card.css";
+import "../assets/styles/card.css";
 const CriticScore = ({ score }) => {
   //color of the score based on the score value
   const colorClass =

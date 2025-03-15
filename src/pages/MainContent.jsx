@@ -5,7 +5,8 @@ import GameList from "../components/GameList";
 import PlatformSelector from "../components/PlatformSelector";
 import SortSelector from "../components/SortSelector";
 import SideBar from "../components/SideBar";
-import "../styles/main-page.css";
+import "../assets/styles/main-page.css";
+import SearchInput from "../components/SearchInput";
 
 const MainContent = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -46,6 +47,10 @@ const MainContent = () => {
           >
             ☰
           </button>
+        </div>
+        {/* Search component */}
+        <div className="my-4">
+          <SearchInput />
         </div>
         <GameList />
       </div>

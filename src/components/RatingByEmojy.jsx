@@ -3,7 +3,7 @@ import exeptional from "../assets/images/exeptional.png";
 import recommended from "../assets/images/recommended.png";
 import meh from "../assets/images/meh.webp";
 import skip from "../assets/images/skip.png";
-import "../styles/card-details.css";
+import "../assets/styles/card-details.css";
 const RatingByEmojy = ({ rate }) => {
   const emojy = {
     //this object for optimization

@@ -8,7 +8,7 @@ import { FaAndroid } from "react-icons/fa";
 import { MdPhoneIphone } from "react-icons/md";
 import { BsGlobe } from "react-icons/bs";
 import { FaLinux } from "react-icons/fa";
-import "../styles/card.css";
+import "../assets/styles/card.css";
 const PlatformIconList = ({ platforms }) => {
   const iconMap = {
     //this object will store the name of the icon with the name of the icon that we will add

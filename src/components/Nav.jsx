@@ -1,12 +1,13 @@
 //this component is the navigation bar
 import { useContext } from "react";
 import Logo from "./Logo";
-import SearchInput from "./SearchInput";
 import GameContext from "../hooks/GameContext";
-import "../styles/nav-bar.css";
+import "../assets/styles/nav-bar.css";
+import { NavLink } from "react-router-dom";
 
 const Nav = () => {
   const { state, dispatch } = useContext(GameContext);
+
   return (
     <>
       <div className="navbar-app">
@@ -14,10 +15,16 @@ const Nav = () => {
         <div>
           <Logo text="game app header" className="logo-header" />
         </div>
+        <div>
+          <div className="nav-bar">
+            <NavLink to={"/"} className="nav-link">
+              Home
+            </NavLink>
 
-        {/* Search component */}
-        <div className="cover-search">
-          <SearchInput />
+            <NavLink to={"/pages/MainContent"} className="nav-link">
+              Games List{" "}
+            </NavLink>
+          </div>
         </div>
         <div className="theme-mode">
           {/* The toggel theme button */}

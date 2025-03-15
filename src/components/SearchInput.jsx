@@ -1,7 +1,7 @@
 //Search Input Component
 import { useContext, useRef } from "react";
 import GameContext from "../hooks/GameContext";
-import "../styles/nav-bar.css";
+import "../assets/styles/main-page.css";
 const SearchInput = () => {
   const { dispatch } = useContext(GameContext);
   const refValue = useRef();
@@ -36,7 +36,7 @@ const SearchInput = () => {
           type="search"
           id="default-search"
           className="search-input"
-          placeholder="Search Games"
+          placeholder="Search 882,917 Games"
           required
         />
       </div>

@@ -2,7 +2,7 @@
 import useGame from "../hooks/useGame";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
-import "../styles/card.css";
+import "../assets/styles/card.css";
 const GameList = () => {
   const {
     //extract the tools from the hook.

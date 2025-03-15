@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "./CriticScore";
 import PlatformIconList from "./PlatformIconList";
-import "../styles/card.css";
+import "../assets/styles/card.css";
 
 const GameCard = ({ game }) => {
   //this props will be passed to the component
@@ -11,7 +11,7 @@ const GameCard = ({ game }) => {
   return (
     <div
       onClick={() => {
-        navigate(`../pages/CardDetails/${game.id}`); //when the card is clicked, the user will be navigated to the details page of the game
+        navigate(`../CardDetails/${game.id}`); //when the card is clicked, the user will be navigated to the details page of the game
       }}
       className="game-card"
     >

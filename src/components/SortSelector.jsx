@@ -1,7 +1,7 @@
 //Component for sort selector
 import { useContext, useState } from "react";
 import GameContext from "../hooks/GameContext";
-import "../styles/selectors.css";
+import "../assets/styles/selectors.css";
 const SortSelector = () => {
   const sortOrders = [
     //Array containing values ​​to sort games by values ​​from the API

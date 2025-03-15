@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; //استيراد العناصر الاساسية من مكتبة الكويري
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; //أداة التطوير من ريأكت
 import "./index.css";
-import "./App.css";
 import GameProvider from "./hooks/GameProvider.jsx";
 
 import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه

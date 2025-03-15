@@ -1,0 +1,13 @@
+.error-page {
+  @apply flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white items-center  justify-center flex-grow text-center px-4;
+}
+.img {
+  @apply w-1/2 rounded-md;
+}
+.link {
+  @apply px-6 py-3 bg-blue-500 text-white rounded-lg text-lg hover:bg-blue-600 transition;
+}
+
+.error-text {
+  @apply text-3xl m-10;
+}
