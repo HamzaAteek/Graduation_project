@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import usePlatform from "../hooks/usePlatform";
 import GameContext from "../hooks/GameContext";
 import "../assets/styles/selectors.css";
-const PlatformSelector = () => {
+const PlatformSelector = ({ setIsDrawerOpen }) => {
   const { error, data } = usePlatform();
   const selector = data?.pages[0]?.results;
   const { state, dispatch } = useContext(GameContext);
@@ -57,7 +57,12 @@ const PlatformSelector = () => {
               <li onClick={() => handleSelect(null)}>None</li>
               {/* map on the items in the array */}
               {selector.map((platform) => (
-                <li key={platform.id} onClick={() => handleSelect(platform)}>
+                <li
+                  key={platform.id}
+                  onClick={() => {
+                    handleSelect(platform), setIsDrawerOpen(false);
+                  }}
+                >
                   {platform?.name}
                 </li>
               ))}

@@ -1,5 +1,5 @@
 //logo component
-import img from "../assets/images/react.svg";
+import img from "../assets/images/logo.webp";
 
 const Logo = ({ text, className }) => {
   //handel the text and the class

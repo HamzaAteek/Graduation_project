@@ -59,10 +59,6 @@
 }
 /*----- end Loading spinner -----*/
 
-/*----- start images change -----*/
-
-/*----- end images change -----*/
-
 /*----- start card details page -----*/
 .error-message {
   @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
@@ -71,7 +67,7 @@
   @apply mx-4 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg;
 }
 .path {
-  @apply flex font-semibold;
+  @apply flex font-semibold text-xl;
 }
 .games-link {
   @apply text-blue-400 block mx-1 hover:underline;
@@ -80,31 +76,31 @@
   @apply text-3xl mb-6 font-bold text-gray-900 dark:text-white mt-4;
 }
 .game-release {
-  @apply text-gray-600 dark:text-gray-300 text-sm mb-4;
+  @apply text-gray-600 dark:text-gray-300 text-lg mb-4;
 }
 .game-rate {
-  @apply text-gray-600 flex dark:text-gray-300 text-sm mb-4;
+  @apply text-gray-600 flex dark:text-gray-300 text-lg mb-4;
 }
 .stars {
   @apply flex dark:text-gray-200 text-gray-400;
 }
 .play-time {
-  @apply text-gray-600 dark:text-gray-300 text-sm mb-4;
+  @apply text-gray-600 dark:text-gray-300 text-lg mb-4;
 }
 .play-time span {
-  @apply font-bold text-lg text-black dark:text-white;
+  @apply font-bold text-2xl text-black dark:text-white;
 }
 .genres-game {
   @apply flex flex-wrap gap-2 mb-4;
 }
 .genres-game span {
-  @apply px-3 py-2 bg-blue-500 text-white text-xs rounded-lg;
+  @apply px-3 py-2 my-3 bg-blue-500 hover:bg-blue-700 text-white rounded-lg cursor-pointer;
 }
 .game-platform {
   @apply flex flex-wrap gap-2 mb-4 pr-6 sm:w-1/2 md:w-3/4;
 }
 .game-platform span {
-  @apply px-3 py-1 bg-gray-700 text-white text-xs rounded-lg;
+  @apply px-3 py-1 bg-gray-700 hover:bg-gray-500 text-white rounded-lg cursor-pointer;
 }
 .game-desc {
   @apply text-gray-700 dark:text-gray-300 text-sm pr-6;
@@ -115,3 +111,4 @@
 .back-game-button {
   @apply mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg;
 }
+/*----- End card details page -----*/

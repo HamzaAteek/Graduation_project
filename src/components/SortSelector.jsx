@@ -2,7 +2,7 @@
 import { useContext, useState } from "react";
 import GameContext from "../hooks/GameContext";
 import "../assets/styles/selectors.css";
-const SortSelector = () => {
+const SortSelector = ({ setIsDrawerOpen }) => {
   const sortOrders = [
     //Array containing values ​​to sort games by values ​​from the API
     { value: "", label: "Relevance" },
@@ -70,7 +70,9 @@ const SortSelector = () => {
               <li
                 key={order.value}
                 value={order.value}
-                onClick={() => handleSelect(order)}
+                onClick={() => {
+                  handleSelect(order), setIsDrawerOpen(false);
+                }}
               >
                 <a>{order.label}</a>
               </li>

@@ -3,7 +3,7 @@ import CardDetails from "./CardDetails";
 import Layout from "./Layout";
 import MainContent from "./MainContent";
 import MainError from "./MainError";
-import MyApp from "./MyApp";
+import LandingPage from "./LandingPage";
 
 const errorMessage = {
   bodyError: "Oops! The Cards page not found",
@@ -14,7 +14,7 @@ const errorMessage = {
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <MyApp />,
+    element: <LandingPage />,
     errorElement: <MainError text={errorMessage.MainError} />,
   },
   {

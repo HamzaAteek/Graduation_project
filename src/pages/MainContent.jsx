@@ -64,10 +64,10 @@ const MainContent = () => {
             </button>
             <h3 className="filter-by">Filters By:</h3>
             <div className="mb-4">
-              <PlatformSelector />
+              <PlatformSelector setIsDrawerOpen={setIsDrawerOpen} />
             </div>
             <div>
-              <SortSelector />
+              <SortSelector setIsDrawerOpen={setIsDrawerOpen} />
             </div>
           </div>
         </div>
