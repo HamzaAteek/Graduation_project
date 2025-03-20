@@ -1,10 +1,10 @@
 //Card details component
+import { FaStar } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import useCard from "../hooks/useCard";
 import ScreenShootsGame from "../components/ScreenShootsGame";
 import "../assets/styles/card-details.css";
 import { useState } from "react";
-import { FaStar } from "react-icons/fa";
 import RatingByEmojy from "../components/RatingByEmojy";
 
 const CardDetails = () => {

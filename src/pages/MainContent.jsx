@@ -73,7 +73,7 @@ const MainContent = () => {
         </div>
       )}
 
-      {/* button to bach home */}
+      {/* button to back home */}
       {showScrollButton && (
         <button
           onClick={scrollToTop}

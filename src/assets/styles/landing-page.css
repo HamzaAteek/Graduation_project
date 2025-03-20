@@ -3,11 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+/*----- First Section -----*/
 .body-page {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url("../images/bg5.jpg");
+  background-image: url("../images/bg1.jpg");
+  @apply dark:bg-[url("../images/bg5.jpg")];
   background-size: cover;
   background-position: center;
   background-size: cover;
@@ -19,15 +21,15 @@
 }
 .overlay {
   position: absolute;
-
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* opacity */
+  background: rgba(0, 0, 0, 0.1);
+  @apply dark:bg-black opacity-50;
 }
-/* محتوى الصفحة */
+/* page content */
 .content {
   position: relative;
-  padding: 12% 8%;
+  padding: 8%;
 }
 
 .content h1 {
@@ -59,7 +61,7 @@
   padding: 20px;
 }
 
-/* أزرار الصفحة */
+/* page buttons */
 .buttons {
   display: flex;
   justify-content: center;
@@ -76,17 +78,17 @@
 }
 
 .btn.primary {
-  background: #ffcc00;
+  background: #d4aa00d0;
   color: black;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .btn.primary:hover {
-  background: #e6b800;
+  background: #ffcc00;
 }
 
-.btn.secondary {
+/* .btn.secondary {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid white;
   color: white;
@@ -94,20 +96,22 @@
 
 .btn.secondary:hover {
   background: rgba(255, 255, 255, 0.4);
-}
+} */
+
+/*----- First Section -----*/
 
 /*----- Start Games Section -----*/
 .slider {
-  background: rgb(2, 0, 36);
+  background: rgb(9, 0, 168);
   background: linear-gradient(
     90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(64, 79, 91, 1) 38%,
-    rgba(64, 87, 91, 1) 68%,
-    rgba(2, 0, 36, 1) 100%
+    rgba(9, 0, 168, 1) 0%,
+    rgba(84, 141, 186, 1) 34%,
+    rgba(78, 140, 189, 1) 72%,
+    rgba(9, 0, 168, 1) 100%
   );
-
-  color: white;
+  color: black;
+  @apply dark:dark:bg-gradient-to-r dark:from-gray-900 dark:via-gray-600 dark:to-gray-900 dark:text-white;
 }
 .game-carousel {
   width: 80%;
@@ -115,12 +119,15 @@
   padding: 20px 0;
 }
 .game-carousel h2 {
-  margin: 4px;
+  text-align: center;
+  letter-spacing: 1px;
+  margin: 8px;
+  font-weight: bold;
   font-size: 1.7rem;
 }
 .game-cards {
   border-radius: 10px;
-  margin: 10px;
+  margin: 1px;
   padding: 10px;
   text-align: center;
   color: white;
@@ -149,3 +156,27 @@ h5 {
   transform: scale(1.05);
 }
 /*----- End Games Section -----*/
+
+/*----- Start Footer Section -----*/
+.footer {
+  background: rgb(2, 0, 36);
+  font-size: 1.2rem;
+  padding: 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.footer h6 {
+  display: flex;
+  gap: 10px;
+  font-size: 1rem;
+}
+.footer h6 a:hover {
+  transform: scale(1.05);
+  color: cyan;
+}
+.footer h6 img {
+  width: 30px;
+  height: 30px;
+}
+/*----- End Footer Section -----*/

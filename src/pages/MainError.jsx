@@ -1,3 +1,4 @@
+//page for show error
 import { Link } from "react-router-dom";
 import err from "../assets/images/error.svg";
 import "../assets/styles/errors-pages.css";

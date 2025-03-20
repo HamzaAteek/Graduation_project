@@ -1,7 +1,8 @@
 //Landing page Component
 import { Link } from "react-router-dom";
-import "../assets/styles/my-app.css";
+import "../assets/styles/landing-page.css";
 import GameSlider from "../components/GameSlider";
+import Footer from "../components/Footer";
 const LandingPage = () => {
   return (
     <>
@@ -18,10 +19,10 @@ const LandingPage = () => {
           </p>
           <div className="buttons">
             <Link to={"/pages/MainContent"} className="btn primary">
-              Discover games
+              Discover our Games
             </Link>
 
-            <Link className="btn secondary">Log in</Link>
+            {/* <Link className="btn secondary">Log in</Link> */}
           </div>
         </div>
       </div>
@@ -33,6 +34,9 @@ const LandingPage = () => {
       </div>
       <div className="slider">
         <GameSlider genres={15} genreName={"Sports Games"} />
+      </div>
+      <div>
+        <Footer />
       </div>
     </>
   );

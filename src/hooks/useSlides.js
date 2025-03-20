@@ -1,3 +1,4 @@
+//hook for fetch the games by genres id
 import useDataQuery from "./useDataQuery";
 
 const useSlides = (filter) =>

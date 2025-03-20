@@ -12,6 +12,7 @@
   @apply text-xs font-medium p-0.5 rounded;
 }
 /*----- critic score end -----*/
+
 /*----- start game card -----*/
 .game-card {
   @apply max-w-sm cursor-pointer bg-gray-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 transition-transform translate-x-1 hover:scale-105 hover:shadow-md dark:hover:shadow-cyan-500 hover:shadow-slate-400;
@@ -38,12 +39,23 @@
   @apply w-6 h-6 mr-2 mt-1 text-gray-600 transition-transform transform hover:scale-125;
 }
 /*----- end game card -----*/
+
 /*----- start game list -----*/
 .error-message {
   @apply p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400;
 }
 .game-list {
   @apply grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-3;
+}
+.game-list:hover .game-card{
+  filter: blur(4px);
+  opacity: 0.5;
+}
+.game-list .game-card:hover {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 .no-game {
   @apply col-span-full text-5xl m-5 text-center text-gray-500;

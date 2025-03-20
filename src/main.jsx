@@ -1,17 +1,17 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; //استيراد العناصر الاساسية من مكتبة الكويري
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; //أداة التطوير من ريأكت
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"; //ؤشمم the main tools from query library
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; //the update tool from raect
 import "./index.css";
 import GameProvider from "./hooks/GameProvider.jsx";
 
-import { RouterProvider } from "react-router-dom"; //استدعاء الخاصية التي عن طريقها سيتم التوجيه
-import routers from "./pages/routes.jsx"; //استدعاء الصفحة التي بها اللينكات الخاصة بالصفحات
+import { RouterProvider } from "react-router-dom"; //Call the property by which the routing will be performed.
+import routers from "./pages/routes.jsx"; //call the page that contains the links to the pages
 
 const queryClient = new QueryClient({
-  ////إنشاء كائن جديد حتى نتمكن من استخدامه ضمن المشروع
+//Create a new object to use it within the project
   defaultOptions: {
-    //تعديل الاعدادات الافتراضية
+//Modify default settings
     queries: {
       retry: 3, //عدد الطلبات الخاطئة قبل الاعلان عن الخطأ
       cacheTime: 10 * 1000000, //مدة الاحتفاظ بالبيانات بالكاش قبل حذفها

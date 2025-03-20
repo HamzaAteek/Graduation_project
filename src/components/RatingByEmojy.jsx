@@ -4,6 +4,7 @@ import recommended from "../assets/images/recommended.png";
 import meh from "../assets/images/meh.webp";
 import skip from "../assets/images/skip.png";
 import "../assets/styles/card-details.css";
+
 const RatingByEmojy = ({ rate }) => {
   const emojy = {
     //this object for optimization

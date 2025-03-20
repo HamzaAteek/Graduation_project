@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import usePlatform from "../hooks/usePlatform";
 import GameContext from "../hooks/GameContext";
 import "../assets/styles/selectors.css";
+
 const PlatformSelector = ({ setIsDrawerOpen }) => {
   const { error, data } = usePlatform();
   const selector = data?.pages[0]?.results;

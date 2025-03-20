@@ -7,6 +7,8 @@
 .side-bar {
   @apply col-span-3 lg:col-span-2;
 }
+
+/*----- Start App Bar -----*/
 .app-bar {
   @apply col-span-9 lg:col-span-10 pr-4;
 }
@@ -34,7 +36,9 @@
 .btn-home {
   @apply fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 active:scale-95 flex items-center justify-center;
 }
-/* start search */
+/*----- End App Bar -----*/
+
+/*----- Start search component -----*/
 .search-icon {
   @apply absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none;
 }
@@ -42,6 +46,6 @@
   @apply w-4 h-4 text-gray-500 dark:text-gray-400;
 }
 .search-input {
-  @apply block w-full p-3 ps-10 placeholder:text-lg placeholder:font-medium text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  @apply block w-full cursor-text p-3 ps-10 placeholder:text-lg placeholder:font-medium text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white;
 }
-/* End search */
+/*----- End search component -----*/

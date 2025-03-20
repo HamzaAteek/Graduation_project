@@ -1,4 +1,4 @@
-/* start genres section*/
+/*----- Start genres section -----*/
 .loader-genre {
   @apply fixed m-10;
 }
@@ -20,4 +20,4 @@
 .genre-button img {
   @apply mb-2 md:mr-4 rounded-md;
 }
-/* end genres section */
+/*----- End genres section -----*/

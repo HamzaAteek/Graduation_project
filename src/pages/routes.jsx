@@ -1,3 +1,4 @@
+//this component for proocessing every page in app
 import { createBrowserRouter } from "react-router-dom";
 import CardDetails from "./CardDetails";
 import Layout from "./Layout";
@@ -5,7 +6,7 @@ import MainContent from "./MainContent";
 import MainError from "./MainError";
 import LandingPage from "./LandingPage";
 
-const errorMessage = {
+const errorMessage = {//this object for display the letter in every error page
   bodyError: "Oops! The Cards page not found",
   MainError: "Oops! The page you're looking for doesn't exist.",
   cardDetails: "Oops! The Card Details page not found",
@@ -14,21 +15,17 @@ const errorMessage = {
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
-    errorElement: <MainError text={errorMessage.MainError} />,
-  },
-  {
-    path: "/pages",
     element: <Layout />,
     errorElement: <MainError text={errorMessage.MainError} />,
     children: [
       {
         index: true,
-        element: <MainContent />,
-        errorElement: <MainError text={errorMessage.bodyError} />,
+        element: <LandingPage />,
+        errorElement: <MainError text={errorMessage.MainError} />,
       },
+
       {
-        path: "MainContent",
+        path: "/pages/MainContent",
         element: <MainContent />,
         errorElement: <MainError text={errorMessage.bodyError} />,
       },
